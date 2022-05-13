@@ -217,7 +217,7 @@ jobs:
           - '8.2'
           - '8.0'
           - '7.10'
-          - '7.8'
+          - '7.8.4'
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
