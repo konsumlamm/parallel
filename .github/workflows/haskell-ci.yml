@@ -217,7 +217,13 @@ jobs:
           - '8.2'
           - '8.0'
           - '7.10'
+        include:
+          - allow-failure: false
+          - os: windows-latest
+            ghc: '7.10'
+            allow-failure: true
     runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.allow-failure }}
     steps:
       - uses: actions/checkout@v3
       - uses: haskell/actions/setup@v2
