@@ -26,8 +26,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - compiler: ghc-9.2.1
-            allow-failure: false
           - compiler: ghc-9.0.1
             allow-failure: false
           - compiler: ghc-8.10.4
@@ -206,6 +204,7 @@ jobs:
 
   new:
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
         ghc:
