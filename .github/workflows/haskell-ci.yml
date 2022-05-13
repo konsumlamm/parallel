@@ -17,7 +17,7 @@ on:
   - push
   - pull_request
 jobs:
-  linux:
+  old:
     name: Haskell-CI - Linux - ${{ matrix.compiler }}
     runs-on: ubuntu-18.04
     container:
@@ -26,11 +26,11 @@ jobs:
     strategy:
       matrix:
         include:
-          - compiler: ghc-9.2.2
+          - compiler: ghc-9.2.1
             allow-failure: false
-          - compiler: ghc-9.0.2
+          - compiler: ghc-9.0.1
             allow-failure: false
-          - compiler: ghc-8.10.7
+          - compiler: ghc-8.10.4
             allow-failure: false
           - compiler: ghc-8.8.4
             allow-failure: false
@@ -203,3 +203,26 @@ jobs:
         run: |
           rm -f cabal.project.local
           $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks all
+
+  new:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+        ghc:
+          - '9.2'
+          - '9.0'
+          - '8.10'
+          - '8.8'
+          - '8.6'
+          - '8.4'
+          - '8.2'
+          - '8.0'
+          - '7.10'
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: haskell/actions/setup@v2
+        with:
+          ghc-version: ${{ matrix.ghc }}
+      - name: Build
+        run: cabal build
